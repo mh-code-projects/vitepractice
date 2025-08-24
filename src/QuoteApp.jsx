@@ -1,17 +1,26 @@
-import { useState, useEffect }from "react";
+import { useState, useEffect } from "react";
 
-function fetchRandomQuote() = useEffect(() => { 
-    fetch(`https://api.quotable.io/random`)
-    .then(response => response.json())
-    .then(data => { setRandomQuote(data) } ); 
+function QuoteApp(){
+    const [randomQuote, setRandomQuote] = useState(null);
+
+    function getNewQuote() {
+        fetch(`https://api.quotable.io/random`)
+        .then(response => response.json())
+        .then(data => { setRandomQuote(data) } );
+}
+
+
+useEffect(() => {  
+    getNewQuote()
     }, []);
 
-const [randomQuote, setRandomQuote] = useState(null);
-useEffect(() => { 
-    fetch(`https://api.quotable.io/random`)
-    .then(response => response.json())
-    .then(data => { setRandomQuote(data) } ); 
-    }, []);
-return (randomQuote ? (<div> <h1>{randomQuote.content}</h1><p>- {randomQuote.author}</p></div>) : (<p>Loading...</p>));
 
+return (randomQuote ? (<div> 
+    <h1>{randomQuote.content}</h1>
+    <p>- {randomQuote.author}</p>
+    <p><button onClick={getNewQuote} >Get a New Quote</button></p>
+</div>) 
+: (<p>Loading...</p>));
 
+}
+export default QuoteApp;
