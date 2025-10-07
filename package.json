@@ -1,4 +1,4 @@
-{
+nvm install node{
   "name": "vitepractice",
   "private": true,
   "version": "0.0.0",
